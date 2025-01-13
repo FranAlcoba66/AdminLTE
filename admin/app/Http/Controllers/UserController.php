@@ -14,10 +14,12 @@ class UserController extends Controller
     {
         $this->user = $user;
     }
+
     public function index(Request $request): View
     {
         $search = $request->get('search');
         $users = $this->user->getUsersWithRoles($search);
+
         return view('users', compact('users'));
     }
 }

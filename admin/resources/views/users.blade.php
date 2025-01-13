@@ -12,7 +12,8 @@
         <h3 class="card-title">Users List</h3>
         <form action="{{ route('users') }}" method="GET" class="form-inline float-right">
             <div class="input-group">
-                <input type="text" name="search" class="form-control form-control-sm" placeholder="Buscar usuarios..." value="{{ request()->get('search') }}">
+                <input type="text" name="search" class="form-control form-control-sm" placeholder="Buscar usuarios..."
+                    value="{{ request()->get('search') }}">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-info btn-sm">
                         <i class="fas fa-search"></i>
@@ -38,7 +39,13 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td></td>
+                        <td>
+                            @if ($user->roles->isNotEmpty())
+                                {{ $user->roles->pluck('name')->join(', ') }}
+                            @else
+                                Sin Roles
+                            @endif
+                        </td>
                         <td>
                             <button class="btn btn-warning btn-sm">Editar</button>
                             <button class="btn btn-danger btn-sm">Eliminar</button>
