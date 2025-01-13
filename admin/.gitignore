@@ -21,3 +21,16 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+/vendor
+/node_modules
+/public/storage
+/storage
+/bootstrap/cache
+.env
+.env.local
+.env.*.local
+.phpunit.result.cache
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
