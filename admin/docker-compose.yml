@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     build:
-      context: ./admin
+      context: ./
       dockerfile: Dockerfile
     image: laravel-app
     container_name: laravel-app
@@ -12,7 +12,7 @@ services:
       - "9000:9000"
     command: ["bash", "-c", "chown -R www-data:www-data /var/www/storage && chmod -R 775 /var/www/storage && php-fpm"]
     volumes:
-      - ./admin:/var/www
+      - ./:/var/www
     networks:
       - app-network
     depends_on:
@@ -54,11 +54,10 @@ services:
   nginx-app:
     image: nginx:latest
     ports:
-      - "80:80"
+      - "9010:80"
     volumes:
-      - ./nginx/local:/etc/nginx/local
-      - ./nginx/local/default.conf:/etc/nginx/default.conf
-      - ./back/app:/var/www
+    - ./nginx:/etc/nginx/conf.d
+    - .:/var/www
     networks:
       - app-network
     depends_on:
@@ -71,5 +70,6 @@ networks:
 
 volumes:
   db_data:
+
     driver: local
 
