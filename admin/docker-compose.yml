@@ -63,6 +63,21 @@ services:
     depends_on:
       - app
 
+  vite:
+    build:
+      context: ./
+    container_name: vite
+    working_dir: /var/www
+    command: ["npm", "run", "build"]
+    volumes:
+      - ./:/var/www
+    ports:
+      - "5173:5173"
+    depends_on:
+      - app
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
