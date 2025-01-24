@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', function () {
@@ -22,7 +23,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::post('/users/edit', [UserController::class, 'editUser'])->name('users.edit');
 
+    Route::post('/role/add', [UserController::class, 'index'])->name('role.add');
+    Route::delete('/role/remove', [RoleController::class, 'index'])->name('role.remove');
 });
 
 require __DIR__.'/auth.php';
