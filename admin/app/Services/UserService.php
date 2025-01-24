@@ -2,15 +2,31 @@
 
 namespace App\Services;
 
+use App\Models\RoleUser;
+use App\Models\User;
+
 class UserService
 {
-    public function editUser($request)
+    private $user;
+    private $roleUser;
+
+    public function __construct(User $user, RoleUser $roleUser)
     {
-        dd($request);
+        $this->user = $user;
+        $this->roleUser = $roleUser;
     }
 
-    public function editRoles($request)
+    public function editUser($params)
     {
-        dd('called');
+        $this->editRoles($params['user_id'], $params['roles']);
+    }
+
+    private function editRoles($userId, $roleIds)
+    {
+        $user = $this->user->find($userId);
+
+        if ($user) {
+            $user->roles()->sync($roleIds);
+        }
     }
 }

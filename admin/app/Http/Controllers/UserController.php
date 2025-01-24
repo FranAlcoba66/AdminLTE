@@ -32,6 +32,14 @@ class UserController extends Controller
 
     public function editUser(Request $request)
     {
-        $this->userService->editUser($request);
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'roles' => 'required|array|min:1',
+            'roles.*' => 'integer|exists:roles,id',
+        ]);
+
+        $this->userService->editUser($validatedData);
     }
 }
